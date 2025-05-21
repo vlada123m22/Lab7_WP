@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 @Entity
 public class Movie {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
     private Integer movie_id;
 

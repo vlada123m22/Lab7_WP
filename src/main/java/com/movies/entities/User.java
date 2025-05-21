@@ -1,17 +1,10 @@
 package com.movies.entities;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 @Table(name = "user")
@@ -19,7 +12,7 @@ import java.util.List;
 
 public class User implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
     private Integer user_id;
 
@@ -30,9 +23,13 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String password;
 
+    @ManyToOne
+    @JoinColumn(name = "user_role_id", nullable = false)
+    UserRole userRole;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return List.of(userRole);
     }
 
     @Override
@@ -81,5 +78,11 @@ public class User implements UserDetails {
         this.password = password;
     }
 
+    public UserRole getUserRole() {
+        return userRole;
+    }
 
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
+    }
 }
