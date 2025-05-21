@@ -37,7 +37,7 @@ public class AdminController {
     @Secured({"SUPERADMIN","ADMIN"})
     @GetMapping("/add-admin")
     public ResponseEntity<User> addAdmin(@RequestBody RegisterUserDto registerUserDto) {
-        User registeredUser = authenticationService.signup(registerUserDto);
+        User registeredUser = authenticationService.addAdmin(registerUserDto);
         return ResponseEntity.ok(registeredUser);
     }
 }

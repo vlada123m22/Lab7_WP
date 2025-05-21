@@ -40,6 +40,16 @@ public class AuthenticationService {
         return userRepository.save(user);
     }
 
+    public User addAdmin(RegisterUserDto input) {
+        User user = new User();
+        user.setUsername(input.getUsername());
+        user.setPassword(passwordEncoder.encode(input.getPassword()));
+        UserRole userRole = userRoleRepository.getUserRoleByName("ADMIN");
+        user.setUserRole(userRole);
+        return userRepository.save(user);
+    }
+
+
     public User authenticate(LoginUserDto input) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
